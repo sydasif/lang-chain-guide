@@ -1,0 +1,29 @@
+import getpass
+import os
+
+from dotenv import load_dotenv
+from langchain_groq import ChatGroq
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Retrieve the GROQ API key from environment variables
+api_key = os.getenv("GROQ_API_KEY")
+
+# Prompt user for API key if not found in environment variables
+if "GROQ_API_KEY" not in os.environ:
+    os.environ["GROQ_API_KEY"] = getpass.getpass("Enter your Groq API key: ")
+
+# Initialize the ChatGroq language model with specific parameters
+# model: Specifies which LLM to use (Llama 3.3 70B versatile model)
+# temperature: Controls randomness in output (0.7 provides a balance between creativity and coherence)
+# timeout: No timeout specified, allowing requests to take as long as needed
+# max_retries: Maximum number of retry attempts if a request fails (set to 2)
+llm = ChatGroq(
+    model="llama-3.3-70b-versatile", temperature=0.7, timeout=None, max_retries=2
+)
+
+# Send a prompt to the language model and get a response
+# In this case, asking for the capital of France
+response = llm.invoke("What is the capital of France?")
+print(response.content)
