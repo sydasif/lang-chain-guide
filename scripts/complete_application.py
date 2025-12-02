@@ -7,9 +7,9 @@ from datetime import datetime
 
 from dotenv import load_dotenv
 from langchain.agents import create_agent
-from langchain.text_splitter import CharacterTextSplitter
+from langchain_text_splitters import CharacterTextSplitter
 from langchain.tools import tool
-from langchain.tools.retriever import create_retriever_tool
+from langchain_core.documents import Document
 from langchain_community.embeddings import FastEmbedEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_groq import ChatGroq
@@ -50,7 +50,7 @@ def check_inventory(product_name: str) -> str:
     return inventory.get(product_name.lower(), "Product not found")
 
 
-# 2. Create Knowledge Base (RAG)
+# 2. Create Knowledge Base (RAG) - Custom Retriever Tool
 knowledge_docs = [
     "Our return policy allows returns within 30 days of purchase for a full refund.",
     "Shipping is free for orders over $50. Standard shipping takes 3-5 business days.",
@@ -59,17 +59,20 @@ knowledge_docs = [
     "You can track your order using the order number sent to your email.",
 ]
 
+documents = [Document(page_content=doc) for doc in knowledge_docs]
+
 text_splitter = CharacterTextSplitter(chunk_size=200, chunk_overlap=20)
-docs = text_splitter.create_documents(knowledge_docs)
+docs = text_splitter.split_documents(documents)
 embeddings = FastEmbedEmbeddings()
 vectorstore = FAISS.from_documents(docs, embeddings)
 retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
 
-retriever_tool = create_retriever_tool(
-    retriever,
-    "company_policies",
-    "Search company policies, shipping info, and customer service guidelines.",
-)
+
+@tool
+def company_policies(query: str) -> str:
+    """Search company policies, shipping info, and customer service guidelines."""
+    docs = retriever.invoke(query)
+    return "\n\n".join([doc.page_content for doc in docs])
 
 
 # 3. Customer Service Logging (replacing middleware)
@@ -107,7 +110,7 @@ Your responsibilities:
 
 Be friendly, professional, and efficient. Always verify order IDs before processing requests."""
 
-tools = [get_order_status, initiate_return, check_inventory, retriever_tool]
+tools = [get_order_status, initiate_return, check_inventory, company_policies]
 agent = create_agent(model=llm, tools=tools, system_prompt=system_prompt)
 
 logger = CustomerServiceLogger()
