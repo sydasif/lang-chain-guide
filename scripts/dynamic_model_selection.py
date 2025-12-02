@@ -31,8 +31,8 @@ def get_smart_model(message_count: int):
         return ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
 
     # For longer conversations, use a more capable model
-    print("Using model: llama-3.3-70b-versatile")
-    return ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
+    print("Using model: llama-3.1-8b-instant")
+    return ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
 
 
 # Track conversation

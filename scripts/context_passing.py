@@ -12,7 +12,7 @@ load_dotenv()
 api_key = os.getenv("GROQ_API_KEY")
 
 # Initialize the ChatGroq language model
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
+llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
 
 
 # Tool that uses context
@@ -37,15 +37,18 @@ def get_local_weather(location: str) -> str:
 # Create agent with multiple tools
 tools = [locate_user, get_local_weather]
 agent = create_agent(
-    model=llm,
-    tools=tools,
-    system_prompt="You are a helpful assistant.",
+    model=llm, tools=tools, system_prompt="You are a helpful assistant."
 )
 
 # Invoke the agent - in the new API, context passing might be different
 # For this simplified version, we'll demonstrate a direct call
 result = agent.invoke({
-    "messages": [{"role": "user", "content": "Locate user user_123 and then get the weather for their location"}]
+    "messages": [
+        {
+            "role": "user",
+            "content": "Locate user user_123 and then get the weather for their location",
+        }
+    ]
 })
 
 print(result["messages"][-1].content)

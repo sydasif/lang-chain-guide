@@ -1,75 +1,128 @@
-import os
+"""
+Human-in-the-Loop Middleware - LangChain Zero-to-Hero Part 5
+
+This script demonstrates how to use official AgentMiddleware to intercept
+sensitive tool calls and require human approval before execution.
+"""
+
+from collections.abc import Callable
+from typing import Any
 
 from dotenv import load_dotenv
 from langchain.agents import create_agent
+from langchain.agents.middleware import AgentMiddleware
 from langchain.tools import tool
 from langchain_groq import ChatGroq
 
-# Load environment variables from .env file
 load_dotenv()
 
-# Retrieve the GROQ API key from environment variables
-api_key = os.getenv("GROQ_API_KEY")
+llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+
+print("=" * 60)
+print("Human-in-the-Loop Middleware Demo")
+print("=" * 60)
 
 
-# Define some tools, one of which is sensitive
+# Define tools
 @tool
 def send_email(recipient: str, subject: str, body: str) -> str:
     """Sends an email. This is a sensitive operation."""
-    # In the new API, we'll implement human approval by asking for confirmation here
-    print(f"Manual approval required for sensitive operation: send_email")
-    print(f"  Recipient: {recipient}")
-    print(f"  Subject: {subject}")
-    print(f"  Body: {body}")
-    approval = input("Approve this email? (yes/no): ")
-    if approval.lower() != "yes":
-        raise Exception(f"Operation 'send_email' cancelled by user")
-
-    result = f"Email sent to {recipient} with subject '{subject}'"
-    print(f"Executing tool 'send_email'...")
-    return result
+    return f"Email sent to {recipient} with subject '{subject}'"
 
 
 @tool
 def check_calendar(date: str) -> str:
     """Checks the calendar for a given date."""
-    print(f"Executing tool 'check_calendar'...")
     return f"No events scheduled for {date}"
 
 
-tools = [send_email, check_calendar]
+# Official middleware for human approval
+class HumanApprovalMiddleware(AgentMiddleware):
+    """Middleware to require human approval for sensitive tools."""
 
-# Initialize the ChatGroq language model
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
+    def __init__(self, sensitive_tools: list[str]):
+        self.sensitive_tools = sensitive_tools
 
-# Usage
+    def wrap_tool_call(self, tool_call: Any, handler: Callable[[Any], Any]) -> Any:
+        """Intercept tool calls and check for sensitive operations."""
+        # Debugging: Print tool_call details
+        print(f"\nDEBUG: tool_call type: {type(tool_call)}")
+        print(f"DEBUG: tool_call dir: {dir(tool_call)}")
+        print(f"DEBUG: tool_call: {tool_call}")
+
+        # Try to access attributes safely based on inspection
+        try:
+            tool_name = getattr(tool_call, 'name', None) or tool_call.get('name')
+            tool_args = getattr(tool_call, 'args', None) or tool_call.get('args')
+        except Exception:
+            tool_name = "unknown"
+            tool_args = {}
+
+        # Check if tool is sensitive
+        if tool_name in self.sensitive_tools:
+            print(f"\n⚠️  SENSITIVE ACTION DETECTED: {tool_name}")
+            print(f"   Args: {tool_args}")
+
+            # Request approval
+            approval = input("   Do you approve this action? (yes/no): ")
+
+            if approval.lower() != "yes":
+                print("   ❌ Action rejected by user")
+                return f"Error: User rejected the action '{tool_name}'."
+
+            print("   ✅ Action approved")
+
+        # Proceed with execution
+        return handler(tool_call)
+
+
+# Create agent with approval middleware
+print("\n[Step 1] Creating agent with approval middleware...")
 agent = create_agent(
     model=llm,
-    tools=tools,
+    tools=[send_email, check_calendar],
+    middleware=[HumanApprovalMiddleware(sensitive_tools=["send_email"])],
     system_prompt="You are a helpful assistant.",
 )
+print("✓ Agent created (send_email requires approval)")
 
-# This call should trigger the approval prompt
-print("\n--- Attempting to use a sensitive tool (send_email) ---")
+# Test 1: Sensitive tool (should ask for approval)
+print("\n" + "=" * 60)
+print("Test 1: Sensitive Tool (send_email)")
+print("=" * 60)
+print("Note: Type 'yes' to approve, 'no' to reject")
+
 try:
-    result = agent.invoke({
+    result1 = agent.invoke({
         "messages": [
             {
                 "role": "user",
-                "content": "Send an email to test@example.com with subject 'Hello' and body 'This is a test'",
+                "content": "Send an email to boss@example.com saying 'I quit'",
             }
         ]
     })
-    print(f"Result: {result['messages'][-1].content}")
+    print(f"\nAI: {result1['messages'][-1].content}")
 except Exception as e:
-    print(f"Caught exception: {e}")
+    print(f"\nError: {e}")
 
-# This call should NOT trigger the approval prompt
-print("\n--- Attempting to use a non-sensitive tool (check_calendar) ---")
+# Test 2: Safe tool (should run automatically)
+print("\n" + "=" * 60)
+print("Test 2: Safe Tool (check_calendar)")
+print("=" * 60)
+
 try:
-    result = agent.invoke({
+    result2 = agent.invoke({
         "messages": [{"role": "user", "content": "Check my calendar for tomorrow"}]
     })
-    print(f"Result: {result['messages'][-1].content}")
+    print(f"\nAI: {result2['messages'][-1].content}")
 except Exception as e:
-    print(f"Caught exception: {e}")
+    print(f"\nError: {e}")
+
+print("\n" + "=" * 60)
+print("Demo Complete!")
+print("=" * 60)
+print("\nKey Takeaways:")
+print("- wrap_tool_call intercepts execution before it happens")
+print("- You can inspect tool name and arguments")
+print("- Human can approve or reject specific actions")
+print("- Safe tools run without interruption")

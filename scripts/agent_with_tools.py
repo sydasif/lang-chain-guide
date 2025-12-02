@@ -12,7 +12,7 @@ load_dotenv()
 api_key = os.getenv("GROQ_API_KEY")
 
 # Initialize the ChatGroq language model
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
+llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
 
 
 # Define a custom tool that the agent can use to get weather information

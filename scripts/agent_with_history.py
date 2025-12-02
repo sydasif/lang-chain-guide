@@ -21,7 +21,7 @@ if "GROQ_API_KEY" not in os.environ:
 # timeout: No timeout specified, allowing requests to take as long as needed
 # max_retries: Maximum number of retry attempts if a request fails (set to 2)
 llm = ChatGroq(
-    model="llama-3.3-70b-versatile", temperature=0.7, timeout=None, max_retries=2
+    model="llama-3.1-8b-instant", temperature=0.7, timeout=None, max_retries=2
 )
 
 # Create a list of messages that represent the conversation history

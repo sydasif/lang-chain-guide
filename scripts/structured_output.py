@@ -18,7 +18,7 @@ if "GROQ_API_KEY" not in os.environ:
 
 # Initialize the ChatGroq language model
 llm = ChatGroq(
-    model="llama-3.3-70b-versatile", temperature=0.7, timeout=None, max_retries=2
+    model="llama-3.1-8b-instant", temperature=0.7, timeout=None, max_retries=2
 )
 
 

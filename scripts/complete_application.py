@@ -4,15 +4,18 @@
 
 import os
 from datetime import datetime
+from typing import Any
 
 from dotenv import load_dotenv
-from langchain.agents import create_agent
-from langchain_text_splitters import CharacterTextSplitter
+from langchain.agents import AgentState, create_agent
+from langchain.agents.middleware import AgentMiddleware
 from langchain.tools import tool
-from langchain_core.documents import Document
 from langchain_community.embeddings import FastEmbedEmbeddings
 from langchain_community.vectorstores import FAISS
+from langchain_core.documents import Document
 from langchain_groq import ChatGroq
+from langchain_text_splitters import CharacterTextSplitter
+from langgraph.runtime import Runtime
 
 # Load environment variables from .env file
 load_dotenv()
@@ -34,9 +37,12 @@ def get_order_status(order_id: str) -> str:
 
 
 @tool
-def initiate_return(order_id: str, reason: str) -> str:
+def initiate_return(order_id: str, reason: str = "Not specified") -> str:
     """Start a return process for an order."""
-    return f"Return initiated for order {order_id}. Reason: {reason}. Return label sent to email."
+    return (
+        f"Return initiated for order {order_id}. Reason: {reason}. "
+        "Return label sent to email."
+    )
 
 
 @tool
@@ -75,30 +81,26 @@ def company_policies(query: str) -> str:
     return "\n\n".join([doc.page_content for doc in docs])
 
 
-# 3. Customer Service Logging (replacing middleware)
-class CustomerServiceLogger:
-    def __init__(self):
-        self.interactions = []
+# 3. Customer Service Middleware (Logging & Observability)
+class CustomerServiceMiddleware(AgentMiddleware):
+    """Middleware for logging customer interactions."""
 
-    def log_start(self):
+    def before_agent(
+        self, state: AgentState, runtime: Runtime
+    ) -> dict[str, Any] | None:
         print(f"\n{'=' * 50}")
         print(
             f"🕐 {datetime.now().strftime('%H:%M:%S')} - Processing customer query..."
         )
+        return None
 
-    def log_tool_use(self, tool_name: str):
-        print(f"🔧 Accessing: {tool_name}")
-
-    def log_end(self, response):
+    def after_model(self, state: AgentState, runtime: Runtime) -> dict[str, Any] | None:
         print("✅ Response ready")
-        self.interactions.append({
-            "timestamp": datetime.now().isoformat(),
-            "response_length": len(str(response)),
-        })
+        return None
 
 
 # 4. Initialize Agent
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
+llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
 
 system_prompt = """You are a helpful customer service agent for an e-commerce company.
 
@@ -108,26 +110,37 @@ Your responsibilities:
 - Check product inventory
 - Answer policy questions using the knowledge base
 
-Be friendly, professional, and efficient. Always verify order IDs before processing requests."""
+Be friendly, professional, and efficient.
+Always verify order IDs before processing requests.
+
+CRITICAL: When using a tool, output ONLY the tool call. Do not add any conversational text before or after the tool call.
+If you need to say something, do it in a separate turn AFTER the tool execution."""
 
 tools = [get_order_status, initiate_return, check_inventory, company_policies]
-agent = create_agent(model=llm, tools=tools, system_prompt=system_prompt)
 
-logger = CustomerServiceLogger()
+# Create agent with middleware
+agent = create_agent(
+    model=llm,
+    tools=tools,
+    middleware=[CustomerServiceMiddleware()],
+    system_prompt=system_prompt,
+)
 
 
 # 5. Run Customer Service Sessions
 def handle_customer(customer_id: str, query: str):
     """Handle a customer service interaction."""
-    # Log the start
-    logger.log_start()
+    # The middleware handles logging now!
 
-    # Create the message for the agent
-    result = agent.invoke(
-        {"messages": [{"role": "user", "content": query}]}
-    )
-
-    return result["messages"][-1].content
+    try:
+        # Add recursion_limit to prevent infinite loops and save tokens
+        result = agent.invoke(
+            {"messages": [{"role": "user", "content": query}]},
+            config={"recursion_limit": 10},
+        )
+        return result["messages"][-1].content
+    except Exception as e:
+        return f"Error processing request: {str(e)}"
 
 
 # Example Interactions
