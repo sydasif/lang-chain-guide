@@ -1097,6 +1097,39 @@ The world of AI is evolving rapidly, and LangChain is at the forefront of this c
 
 ---
 
+## Available Scripts in This Repository
+
+This repository includes several example scripts that demonstrate various LangChain concepts. All scripts have been updated to work with the current LangChain API:
+
+### Basic Agent Scripts
+
+- **`agent_with_tools.py`**: A simple weather assistant that demonstrates tool usage with the latest LangChain agent API.
+- **`agent_streaming.py`**: Shows how to stream responses from LLMs for better user experience.
+- **`agent_with_history.py`**: Demonstrates maintaining conversation history with AI models.
+
+### Advanced Feature Scripts
+
+- **`context_passing.py`**: Illustrates how to pass additional context to agents for enhanced functionality.
+- **`custom_middleware.py`**: Shows implementation of custom logging and analytics middleware.
+- **`dynamic_model_selection.py`**: Demonstrates switching between different models based on conversation complexity.
+- **`dynamic_prompt_selection.py`**: Shows how to dynamically select system prompts based on user roles.
+
+### Memory and RAG Scripts
+
+- **`memory_with_checkpointing.py`**: Implements conversation memory across multiple interactions.
+- **`rag_pipeline.py`**: Complete Retrieval Augmented Generation pipeline with vector database integration.
+
+### Middleware Examples
+
+- **`human_in_the_loop_middleware.py`**: Implements human approval workflows for sensitive operations.
+- **`rate_limiting_middleware.py`**: Shows how to implement rate limiting to control API usage.
+
+### Complete Application
+
+- **`complete_application.py`**: A comprehensive customer service agent combining multiple tools, RAG, memory, and middleware.
+
+Each script is self-contained and can be run independently. They showcase best practices for implementing LangChain agents with the current API.
+
 ## Next Steps
 
 Your journey with LangChain is just beginning! Here are some resources to continue your learning:
