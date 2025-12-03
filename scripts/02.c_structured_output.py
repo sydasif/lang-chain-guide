@@ -26,7 +26,7 @@ class WeatherResponse(BaseModel):
     condition: Literal["sunny", "cloudy", "rainy", "snowy"] = Field(
         description="Weather condition"
     )
-    recommendation: str = Field(description="What to wear or do")
+    recommendation: str = Field(description="What to wear or do?")
 
 
 # Bind the structure to the model
