@@ -1,5 +1,3 @@
-import os
-
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain_groq import ChatGroq
@@ -7,11 +5,8 @@ from langchain_groq import ChatGroq
 # Load environment variables
 load_dotenv()
 
-# Retrieve the GROQ API key
-api_key = os.getenv("GROQ_API_KEY")
-
 # Initialize the LLM
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 
 def create_dynamic_agent(user_role: str):

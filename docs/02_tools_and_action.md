@@ -91,7 +91,7 @@ from langchain_groq import ChatGroq
 
 load_dotenv()
 
-api_key = os.getenv("GROQ_API_KEY")
+
 
 llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
@@ -393,7 +393,7 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
-api_key = os.getenv("GROQ_API_KEY")
+
 
 if "GROQ_API_KEY" not in os.environ:
     os.environ["GROQ_API_KEY"] = getpass.getpass("Enter your Groq API key: ")

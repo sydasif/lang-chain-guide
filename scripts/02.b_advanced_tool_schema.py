@@ -5,7 +5,6 @@ This script demonstrates advanced tool definition using Pydantic schemas
 with Field descriptions, Literal types, and default values.
 """
 
-import os
 from typing import Literal
 
 from dotenv import load_dotenv
@@ -16,7 +15,7 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 60)
 print("Advanced Tool Schema Demo")

@@ -77,7 +77,7 @@ Let's start with the simplest possible pipeline: turn a user's topic into a help
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 prompt = PromptTemplate.from_template("Write a short tip about: {topic}")
 
 # Traditional approach (verbose)
@@ -96,7 +96,7 @@ print(final_output)
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 prompt = PromptTemplate.from_template("Write a short tip about: {topic}")
 
 # LCEL approach (clean)
@@ -230,7 +230,7 @@ from langchain_core.runnables import RunnableMap, RunnableLambda
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 
 # Define each processing step
 def get_summary(text):
@@ -336,7 +336,7 @@ from langchain_groq import ChatGroq
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # Initialize LLM
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 
 # Step 1: Create knowledge base (same as Part 5)
 raw_documents = [
@@ -606,7 +606,7 @@ Any chain can stream:
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 prompt = PromptTemplate.from_template("Write a paragraph about: {topic}")
 
 chain = prompt | llm
@@ -685,7 +685,7 @@ from langchain_groq import ChatGroq
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 # Initialize
-llm = ChatGroq(model="llama-3.1-8b-instant")
+llm = ChatGroq(model="llama-3.3-70b-versatile")
 
 # Step 1: Build knowledge base
 raw_documents = [

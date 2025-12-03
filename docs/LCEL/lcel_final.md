@@ -217,7 +217,7 @@ If uncertain, default to general chat (safer than accidentally executing network
 ```python
 from langchain_groq import ChatGroq
 
-llm_classifier = ChatGroq(model="llama-3.1-8b-instant")
+llm_classifier = ChatGroq(model="llama-3.3-70b-versatile")
 
 def classify_with_llm(text: str) -> str:
     """Use a small LLM as the classifier."""
@@ -499,7 +499,7 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 # Initialize LLM
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 60)
 print("Network Automation Agent - Routing System")
@@ -632,7 +632,7 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 # Initialize LLM
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 80)
 print("NETWORK AUTOMATION AGENT v1.0")

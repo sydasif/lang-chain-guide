@@ -118,7 +118,7 @@ from langgraph.runtime import Runtime
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 60)
 print("Logging Middleware Demo - Official AgentMiddleware")
@@ -365,7 +365,7 @@ from langgraph.runtime import Runtime
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 60)
 print("Rate Limiting Middleware Demo")
@@ -600,7 +600,7 @@ from langchain_groq import ChatGroq
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 60)
 print("Human-in-the-Loop Middleware Demo")
@@ -840,7 +840,7 @@ from langgraph.runtime import Runtime
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 60)
 print("Summarization Middleware Demo")

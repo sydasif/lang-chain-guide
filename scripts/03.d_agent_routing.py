@@ -8,11 +8,8 @@ from langchain_groq import ChatGroq
 # Load environment variables
 load_dotenv()
 
-# Retrieve the GROQ API key
-api_key = os.getenv("GROQ_API_KEY")
-
 # Initialize the LLM
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 # --- Step 1: Define Specialized Agents ---
 

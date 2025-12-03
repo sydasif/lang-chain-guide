@@ -8,11 +8,8 @@ from langchain_groq import ChatGroq
 # Load environment variables from .env file
 load_dotenv()
 
-# Retrieve the GROQ API key from environment variables
-api_key = os.getenv("GROQ_API_KEY")
-
 # Initialize the ChatGroq language model
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 
 # Define some tools for the agent to use

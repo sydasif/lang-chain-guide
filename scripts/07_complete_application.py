@@ -21,7 +21,6 @@ from langgraph.runtime import Runtime
 load_dotenv()
 
 # Retrieve the GROQ API key from environment variables
-api_key = os.getenv("GROQ_API_KEY")
 
 
 # 1. Define Tools
@@ -100,7 +99,7 @@ class CustomerServiceMiddleware(AgentMiddleware):
 
 
 # 4. Initialize Agent
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 system_prompt = """You are a helpful customer service agent for an e-commerce company.
 

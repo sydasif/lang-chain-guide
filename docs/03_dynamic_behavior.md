@@ -82,7 +82,7 @@ from langchain_groq import ChatGroq
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 
 def create_dynamic_agent(user_role: str):
@@ -243,7 +243,7 @@ def get_smart_model(query: str):
     complexity = analyze_query_complexity(query)
 
     if complexity == "simple":
-        return ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+        return ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
     return ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 ```
 
@@ -273,7 +273,7 @@ For production systems that need higher accuracy, you can use a small, cheap mod
 ```python
 def analyze_with_llm(query: str) -> str:
     """Use a small model to classify complexity."""
-    classifier = ChatGroq(model="llama-3.1-8b-instant")
+    classifier = ChatGroq(model="llama-3.3-70b-versatile")
 
     prompt = f"""Classify this query as 'simple' or 'complex':
     Simple = facts, greetings, basic questions
@@ -614,7 +614,7 @@ from langchain_groq import ChatGroq
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 # --- Step 1: Define Specialized Agents ---
 
@@ -878,7 +878,7 @@ Try these queries:
 
 ```python
 def classify_with_llm(query: str) -> str:
-    classifier = ChatGroq(model="llama-3.1-8b-instant")
+    classifier = ChatGroq(model="llama-3.3-70b-versatile")
     prompt = f"Classify this as 'technical', 'billing', or 'general': {query}"
     return classifier.invoke(prompt).content.lower()
 ```

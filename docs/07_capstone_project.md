@@ -207,7 +207,7 @@ class CustomerServiceMiddleware(AgentMiddleware):
 Now we bring it all together.
 
 ```python
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 system_prompt = """You are a helpful customer service agent for an e-commerce company.
 

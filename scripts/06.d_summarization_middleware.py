@@ -17,7 +17,7 @@ from langgraph.runtime import Runtime
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
 print("=" * 60)
 print("Summarization Middleware Demo")

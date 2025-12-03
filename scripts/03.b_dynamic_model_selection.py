@@ -7,9 +7,6 @@ from langchain_groq import ChatGroq
 # Load environment variables
 load_dotenv()
 
-# Retrieve the GROQ API key
-api_key = os.getenv("GROQ_API_KEY")
-
 
 def analyze_query_complexity(query: str) -> str:
     """
@@ -55,8 +52,8 @@ def get_smart_model(query: str):
     print(f"[ROUTER] Complexity: {complexity.upper()}")
 
     if complexity == "simple":
-        print("[ROUTER] Selection: Llama 3.1 8B (Fast Model)")
-        return ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
+        print("[ROUTER] Selection: Llama 3.3 70B (Powerful Model)")
+        return ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
     print("[ROUTER] Selection: Llama 3.3 70B (Powerful Model)")
     return ChatGroq(model="llama-3.3-70b-versatile", temperature=0.7)
 
