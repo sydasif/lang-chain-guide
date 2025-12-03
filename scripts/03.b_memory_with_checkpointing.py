@@ -30,9 +30,7 @@ tools = [get_user_info]
 # via state management in the new API, but for this example we'll manage conversation history manually
 
 agent = create_agent(
-    model=llm,
-    tools=tools,
-    system_prompt="You are a helpful assistant.",
+    model=llm, tools=tools, system_prompt="You are a helpful assistant."
 )
 
 # Since the new API handles memory differently, we'll simulate the conversation
@@ -40,15 +38,16 @@ agent = create_agent(
 
 # First message
 print("User: My name is Alice and I live in Seattle")
-messages = [
-    {"role": "user", "content": "My name is Alice and I live in Seattle"}
-]
+messages = [{"role": "user", "content": "My name is Alice and I live in Seattle"}]
 result1 = agent.invoke({"messages": messages})
 print(f"AI: {result1['messages'][-1].content}")
 
 # Add the AI response to the message history
 messages.append(result1['messages'][-1])  # AI response
-messages.append({"role": "user", "content": "What's my name and where do I live?"})  # New user query
+messages.append({
+    "role": "user",
+    "content": "What's my name and where do I live?",
+})  # New user query
 
 # Second message - the agent now has context from the conversation history
 print("\nUser: What's my name and where do I live?")

@@ -37,9 +37,7 @@ def get_weather(city: str) -> str:
 # tools: A list of functions the agent can use (in this case, get_weather)
 # system_prompt: Sets the context and role for the agent (weather assistant)
 agent = create_agent(
-    model=llm,
-    tools=[get_weather],
-    system_prompt="You are a helpful weather assistant.",
+    model=llm, tools=[get_weather], system_prompt="You are a helpful weather assistant."
 )
 
 # Invoke the agent with a user query about the weather in London

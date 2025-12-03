@@ -40,8 +40,8 @@ print(f"✓ Loaded {len(documents)} documents")
 # Step 2: Split documents into chunks using RecursiveCharacterTextSplitter
 print("\n[Step 2] Splitting documents into chunks...")
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=200,        # Maximum characters per chunk
-    chunk_overlap=20,      # Overlap between chunks to maintain context
+    chunk_size=200,  # Maximum characters per chunk
+    chunk_overlap=20,  # Overlap between chunks to maintain context
     add_start_index=True,  # Track position in original document
 )
 docs = text_splitter.split_documents(documents)
@@ -77,8 +77,8 @@ agent = create_agent(
     model=llm,
     tools=tools,
     system_prompt="You are a helpful assistant with access to a knowledge base. "
-                  "When answering questions, use the knowledge base tool to find "
-                  "relevant information before responding."
+    "When answering questions, use the knowledge base tool to find "
+    "relevant information before responding.",
 )
 print("✓ Agent created with knowledge_base tool")
 
@@ -103,7 +103,7 @@ print("Testing Direct Retrieval")
 print("=" * 60)
 
 query = "What is FAISS?"
-print(f"\n[Query 2] Direct retrieval test")
+print("\n[Query 2] Direct retrieval test")
 print(f"Query: '{query}'")
 
 relevant_docs = retriever.invoke(query)

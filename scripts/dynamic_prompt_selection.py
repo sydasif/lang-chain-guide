@@ -43,11 +43,7 @@ def create_dynamic_agent(user_role: str):
 
     llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.7)
 
-    agent = create_agent(
-        model=llm,
-        tools=tools,
-        system_prompt=system_prompt,
-    )
+    agent = create_agent(model=llm, tools=tools, system_prompt=system_prompt)
     return agent
 
 
