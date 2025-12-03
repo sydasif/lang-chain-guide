@@ -1095,7 +1095,7 @@ Your agent is about to gain structure, stability, and safety.
 
 ---
 
-**Ready to make your agent production-safe?** Continue to [Part 5](./05_middleware_control.md) where we build the middleware layer that makes AI agents trustworthy for real-world deployment.
+**Ready to make your agent production-safe?** Continue to [Part 6](./06_middleware_control.md) where we build the middleware layer that makes AI agents trustworthy for real-world deployment.
 
 ---
 

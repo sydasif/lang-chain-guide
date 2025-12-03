@@ -664,7 +664,7 @@ Your agent is about to get a brain that remembers.
 
 ---
 
-**Ready to give your agent a memory?** Continue to [Part 3](./03_memory_and_context.md) where we solve the amnesia problem and build truly intelligent, context-aware agents.
+**Ready to give your agent a memory?** Continue to [Part 3](./03_dynamic_behavior.md) where we solve the amnesia problem and build truly intelligent, context-aware agents.
 
 ---
 
