@@ -109,12 +109,12 @@ Your responsibilities:
 - Process returns and exchanges
 - Check product inventory
 - Answer policy questions using the knowledge base
+    - Summarize the relevant policy and stop.
 
 Be friendly, professional, and efficient.
 Always verify order IDs before processing requests.
-
-CRITICAL: When using a tool, output ONLY the tool call. Do not add any conversational text before or after the tool call.
-If you need to say something, do it in a separate turn AFTER the tool execution."""
+Once you have the information or have performed the action,
+answer the user immediately."""
 
 tools = [get_order_status, initiate_return, check_inventory, company_policies]
 
@@ -136,7 +136,7 @@ def handle_customer(customer_id: str, query: str):
         # Add recursion_limit to prevent infinite loops and save tokens
         result = agent.invoke(
             {"messages": [{"role": "user", "content": query}]},
-            config={"recursion_limit": 10},
+            config={"recursion_limit": 20},
         )
         return result["messages"][-1].content
     except Exception as e:

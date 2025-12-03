@@ -1,6 +1,6 @@
-# LangChain Zero-to-Hero Part 5: Building the "Manager Layer" (Middleware & Safety Controls)
+# LangChain Zero-to-Hero Part 6: Building the "Manager Layer" (Middleware & Safety Controls)
 
-**Welcome to Part 5!** You've built an impressive AI agent that can converse ([Part 1](./01_hello_world.md)), take action with tools ([Part 2](./02_tools_and_action.md)), remember conversations ([Part 3](./03_memory_and_context.md)), and access domain knowledge through RAG ([Part 4](./04_rag_pipeline.md)).
+**Welcome to Part 6!** You've built an impressive AI agent that can converse ([Part 1](./01_hello_world.md)), take action with tools ([Part 2](./02_tools_and_action.md)), adapt its behavior dynamically ([Part 3](./03_dynamic_behavior.md)), remember conversations ([Part 4](./04_memory_and_context.md)), and access domain knowledge through RAG ([Part 5](./05_rag_pipeline.md)).
 
 But there's a critical problem that will bite you the moment you deploy to production.
 
@@ -1097,7 +1097,7 @@ Your agent now has:
 - **Power** (Tools from Part 2)
 - **Memory** (Context from Part 3)
 - **Knowledge** (RAG from Part 4)
-- **Control** (Middleware from Part 5)
+- **Control** (Middleware from Part 6)
 
 ---
 
@@ -1131,7 +1131,7 @@ You now have all the building blocks for a production AI agent:
 - **Tools** (Part 2)
 - **Memory** (Part 3)
 - **Knowledge** (Part 4)
-- **Control** (Part 5)
+- **Control** (Part 6)
 
 **In Part 6**, we combine everything into a **complete, real-world application**:
 

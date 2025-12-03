@@ -1,6 +1,6 @@
-# LangChain Zero-to-Hero Part 3: Solving the Goldfish Memory Problem
+# LangChain Zero-to-Hero Part 4: Solving the Goldfish Memory Problem
 
-**Welcome to Part 3!** You've built an AI that can converse (Part 1) and take action using tools (Part 2). But there's a critical flaw that makes your agent frustrating to use in real conversations.
+**Welcome to Part 4!** You've built an AI that can converse (Part 1), take action using tools (Part 2), and adapt its behavior based on context (Part 3). But there's a critical flaw that makes your agent frustrating to use in real conversations.
 
 Try this experiment with your current agent:
 
@@ -533,7 +533,7 @@ messages = get_user_messages(user_id)
 
 ## Your Challenge: Build a Personality-Persistent Chatbot
 
-Before Part 4, build this:
+Before Part 5, build this:
 
 **Requirements:**
 
@@ -727,7 +727,7 @@ result = agent.invoke({
 - Building production applications
 - You need state beyond messages
 - You want type safety and validation
-- You're using middleware (Part 5)
+- You're using middleware (Part 6)
 
 ---
 
@@ -758,13 +758,13 @@ Your agent can remember conversations, but what about knowledge it was never tra
 
 The AI doesn't have access to your private documents, company policies, or proprietary information.
 
-**In Part 4**, we'll solve this with **RAG (Retrieval-Augmented Generation)**—teaching your agent to search through your documents and provide accurate, grounded answers.
+**In Part 5**, we'll solve this with **RAG (Retrieval-Augmented Generation)**—teaching your agent to search through your documents and provide accurate, grounded answers.
 
 This is where your agent transforms from a conversational partner into a **knowledge expert**.
 
 ---
 
-**Ready to give your agent domain expertise?** Continue to [Part 4](./04_rag_pipeline.md) where we build a RAG pipeline that lets your AI access and reason over your private documents.
+**Ready to give your agent domain expertise?** Continue to [Part 5](./05_rag_pipeline.md) where we build a RAG pipeline that lets your AI access and reason over your private documents.
 
 ---
 

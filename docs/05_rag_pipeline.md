@@ -1,6 +1,6 @@
-# LangChain Zero-to-Hero Part 4: Giving Your AI a Photographic Memory (RAG Pipeline)
+# LangChain Zero-to-Hero Part 5: Giving Your AI a Photographic Memory (RAG Pipeline)
 
-**Welcome to Part 4!** You've built an AI that can converse ([Part 1](./01_hello_world.md)), take action with tools ([Part 2](./02_tools_and_action.md)), and remember conversations ([Part 3](./03_memory_and_context.md)). But there's still a critical limitation that makes your agent frustrating for real-world applications.
+**Welcome to Part 5!** You've built an AI that can converse ([Part 1](./01_hello_world.md)), take action with tools ([Part 2](./02_tools_and_action.md)), adapt its behavior dynamically ([Part 3](./03_dynamic_behavior.md)), and remember conversations ([Part 4](./04_memory_and_context.md)). But there's still a critical limitation that makes your agent frustrating for real-world applications.
 
 Try asking your current agent:
 
@@ -67,7 +67,7 @@ def get_weather(city: str) -> str:
 
 The AI executes an action and gets structured data back.
 
-### Part 4 RAG (Knowledge-Based)
+### Part 5 RAG (Knowledge-Based)
 
 ```python
 @tool
@@ -1070,7 +1070,7 @@ Your AI can now:
 - Converse naturally (Part 1)
 - Take actions with tools (Part 2)
 - Remember context (Part 3)
-- Access your knowledge base (Part 4)
+- Access your knowledge base (Part 5)
 
 But there's a critical problem: **your agent has no guardrails**.
 

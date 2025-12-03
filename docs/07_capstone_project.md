@@ -1,4 +1,4 @@
-# LangChain Zero-to-Hero Part 6: The Capstone Project (Building a Real AI Agent)
+# LangChain Zero-to-Hero Part 7: The Capstone Project (Building a Real AI Agent)
 
 **Congratulations!** You've made it to the final chapter.
 
@@ -6,9 +6,10 @@ Across the last five parts, you've learned the individual superpowers of modern 
 
 * **Part 1:** How to talk to LLMs and stream responses
 * **Part 2:** How to give your agent tools to interact with the world
-* **Part 3:** How to give your agent memory and context
-* **Part 4:** How to give your agent knowledge (RAG)
-* **Part 5:** How to control your agent with middleware
+* **Part 3:** How to make your agent adapt dynamically
+* **Part 4:** How to give your agent memory and context
+* **Part 5:** How to give your agent knowledge (RAG)
+* **Part 6:** How to control your agent with middleware
 
 Now, we're going to stop building "demos" and build a **real application**.
 
@@ -179,7 +180,7 @@ Now, when a user asks "What is your return policy?", the agent will use the `com
 
 ## Step 4: The Middleware (The "Manager")
 
-We need to log every interaction for quality assurance. We'll use the middleware pattern we learned in Part 5.
+We need to log every interaction for quality assurance. We'll use the middleware pattern we learned in Part 6.
 
 ```python
 class CustomerServiceMiddleware(AgentMiddleware):
@@ -215,12 +216,11 @@ Your responsibilities:
 - Process returns and exchanges
 - Check product inventory
 - Answer policy questions using the knowledge base
+    - Summarize the relevant policy and stop.
 
 Be friendly, professional, and efficient.
 Always verify order IDs before processing requests.
-
-CRITICAL: When using a tool, output ONLY the tool call. Do not add any conversational text before or after the tool call.
-If you need to say something, do it in a separate turn AFTER the tool execution."""
+Once you have the information or have performed the action, answer the user immediately."""
 
 tools = [get_order_status, initiate_return, check_inventory, company_policies]
 
