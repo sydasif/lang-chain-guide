@@ -6,13 +6,13 @@ with Field descriptions, Literal types, and default values.
 """
 
 import os
+from typing import Literal
 
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain.tools import tool
 from langchain_groq import ChatGroq
 from pydantic import BaseModel, Field
-from typing import Literal
 
 load_dotenv()
 
@@ -26,22 +26,17 @@ print("=" * 60)
 # Define advanced schema with Pydantic
 class WeatherInput(BaseModel):
     """Input schema for weather queries."""
+
     location: str = Field(description="City name or coordinates")
     units: Literal["celsius", "fahrenheit"] = Field(
-        default="celsius",
-        description="Temperature unit preference"
+        default="celsius", description="Temperature unit preference"
     )
-    include_forecast: bool = Field(
-        default=False,
-        description="Include 5-day forecast"
-    )
+    include_forecast: bool = Field(default=False, description="Include 5-day forecast")
 
 
 @tool(args_schema=WeatherInput)
 def get_weather(
-    location: str,
-    units: str = "celsius",
-    include_forecast: bool = False
+    location: str, units: str = "celsius", include_forecast: bool = False
 ) -> str:
     """Get current weather and optional forecast."""
     # Simulated weather data
@@ -67,7 +62,7 @@ print("\n[Step 1] Creating agent with advanced weather tool...")
 agent = create_agent(
     model=llm,
     tools=[get_weather],
-    system_prompt="You are a helpful weather assistant. Use the weather tool to provide accurate information."
+    system_prompt="You are a helpful weather assistant. Use the weather tool to provide accurate information.",
 )
 print("✓ Agent created")
 
@@ -89,7 +84,9 @@ print("=" * 60)
 print("\nUser: What's the weather in New York in Fahrenheit?")
 
 result2 = agent.invoke({
-    "messages": [{"role": "user", "content": "What's the weather in New York in Fahrenheit?"}]
+    "messages": [
+        {"role": "user", "content": "What's the weather in New York in Fahrenheit?"}
+    ]
 })
 print(f"\nAI: {result2['messages'][-1].content}")
 
@@ -100,7 +97,12 @@ print("=" * 60)
 print("\nUser: What's the weather in Tokyo? Include the 5-day forecast.")
 
 result3 = agent.invoke({
-    "messages": [{"role": "user", "content": "What's the weather in Tokyo? Include the 5-day forecast."}]
+    "messages": [
+        {
+            "role": "user",
+            "content": "What's the weather in Tokyo? Include the 5-day forecast.",
+        }
+    ]
 })
 print(f"\nAI: {result3['messages'][-1].content}")
 

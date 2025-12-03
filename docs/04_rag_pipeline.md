@@ -4,7 +4,7 @@
 
 Try asking your current agent:
 
-```
+```bash
 You: "What's our company's return policy?"
 AI: "I don't have access to your specific company policies..."
 
@@ -38,7 +38,7 @@ LLMs are trained with a "closed book"—they only know what they memorized durin
 
 ### The RAG Flow
 
-```
+```text
 User Question
     ↓
 AI analyzes question
@@ -94,7 +94,7 @@ RAG has two distinct phases that happen at different times:
 
 This happens **before** users start asking questions:
 
-```
+```text
 Your Documents
     ↓
 Load documents
@@ -114,7 +114,7 @@ Think of this like building a library index—you do it once, then use it many t
 
 This happens **every time** a user asks a question:
 
-```
+```text
 User Query
     ↓
 Convert query to embedding
@@ -1048,16 +1048,16 @@ This exercise will prepare you for real-world RAG systems with multiple knowledg
 
 Incredible work! You've now learned:
 
-✅ The two phases of RAG (indexing and retrieval)
-✅ Document loaders for various sources
-✅ Text splitting strategies with RecursiveCharacterTextSplitter
-✅ Embeddings and semantic search
-✅ FAISS vector store and persistence
-✅ Retriever configuration and search types
-✅ RAG tools (simple and advanced patterns)
-✅ RAG agents vs RAG chains
-✅ Production considerations and optimization
-✅ Debugging and best practices
+- ✅ The two phases of RAG (indexing and retrieval)
+- ✅ Document loaders for various sources
+- ✅ Text splitting strategies with RecursiveCharacterTextSplitter
+- ✅ Embeddings and semantic search
+- ✅ FAISS vector store and persistence
+- ✅ Retriever configuration and search types
+- ✅ RAG tools (simple and advanced patterns)
+- ✅ RAG agents vs RAG chains
+- ✅ Production considerations and optimization
+- ✅ Debugging and best practices
 
 Your agent now has access to **domain-specific knowledge** without retraining!
 
@@ -1095,7 +1095,7 @@ Your agent is about to gain structure, stability, and safety.
 
 ---
 
-**Ready to make your agent production-safe?** Continue to Part 5 where we build the middleware layer that makes AI agents trustworthy for real-world deployment.
+**Ready to make your agent production-safe?** Continue to [Part 5](./05_middleware_control.md) where we build the middleware layer that makes AI agents trustworthy for real-world deployment.
 
 ---
 

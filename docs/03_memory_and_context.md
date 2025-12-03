@@ -4,7 +4,7 @@
 
 Try this experiment with your current agent:
 
-```
+```bash
 You: "Hi, my name is Sarah."
 AI: "Hello Sarah! Nice to meet you."
 
@@ -28,7 +28,7 @@ Think of it like this:
 
 ### Without Memory
 
-```
+```bash
 Request 1: "My name is Bob"
 → AI processes this standalone
 → Response: "Hello Bob!"
@@ -167,7 +167,7 @@ Let's visualize the difference:
         ↓ (stored)
 ┌─────────────────────────────┐
 │ Request 1 + Response 1 +    │ → AI → Response 2
-│ Request 2                    │
+│ Request 2                   │
 └─────────────────────────────┘
 ```
 
@@ -271,7 +271,7 @@ python memory_with_checkpointing.py
 
 You'll see:
 
-```
+```bash
 User: My name is Alice and I live in Seattle
 AI: Nice to meet you, Alice! It's great to know you're from Seattle...
 
@@ -735,12 +735,12 @@ result = agent.invoke({
 
 Incredible progress! You've now learned:
 
-✅ Why LLMs are stateless and how memory works
-✅ Manual history management with message types
-✅ Production-ready checkpointing patterns
-✅ Context passing for hidden metadata
-✅ Tool chaining with contextual awareness
-✅ Memory management strategies for scale
+- ✅ Why LLMs are stateless and how memory works
+- ✅ Manual history management with message types
+- ✅ Production-ready checkpointing patterns
+- ✅ Context passing for hidden metadata
+- ✅ Tool chaining with contextual awareness
+- ✅ Memory management strategies for scale
 
 Your agent now has continuity—it can maintain context across multiple turns.
 
@@ -764,7 +764,7 @@ This is where your agent transforms from a conversational partner into a **knowl
 
 ---
 
-**Ready to give your agent domain expertise?** Continue to Part 4 where we build a RAG pipeline that lets your AI access and reason over your private documents.
+**Ready to give your agent domain expertise?** Continue to [Part 4](./04_rag_pipeline.md) where we build a RAG pipeline that lets your AI access and reason over your private documents.
 
 ---
 
