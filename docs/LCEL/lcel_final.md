@@ -1,6 +1,6 @@
-# Building Your Production-Ready Network Automation Agent (The Final Project)
+# LCEL Module Part 2: Building Your Production-Ready Network Automation Agent
 
-**Congratulations on making it to the final chapter!** This has been quite a journey. You started with a simple "Hello World" in [Part 1](./01_hello_world.md), learned to give your AI superpowers with tools in [Part 2](./02_tools_and_action.md), made agents adaptive in [Part 3](./03_dynamic_behavior.md), gave them memory in [Part 4](./04_memory_and_context.md), connected them to knowledge bases in [Part 5](./05_rag_pipeline.md), added control layers in [Part 6](./06_middleware_control.md), and learned to build clean pipelines in [Part 7](./07_pipeline_with_lcel.md).
+**Congratulations on making it to the final chapter!** This has been quite a journey. You started with a simple "Hello World" in [Part 1](../01_hello_world.md), learned to give your AI superpowers with tools in [Part 2](../02_tools_and_action.md), made agents adaptive in [Part 3](../03_dynamic_behavior.md), gave them memory in [Part 4](../04_memory_and_context.md), connected them to knowledge bases in [Part 5](../05_rag_pipeline.md), added control layers in [Part 6](../06_middleware_control.md), and learned to build clean pipelines in [LCEL Part 1](./lcel_pipeline.md).
 
 **Now it's time to bring it all together.**
 
@@ -42,7 +42,7 @@ It will give you a confident answer. **But it's making it up.** It has no connec
 
 Your production agent uses a clean, testable architecture:
 
-```
+```text
 User Input
     ↓
 ┌──────────────────┐
@@ -111,7 +111,7 @@ Let's implement the decision layer properly.
 
 ### The Simple Classifier (Good Enough for Production)
 
-Create `scripts/08.a_classifier.py`:
+Create `scripts/LCEL/02.a_classifier.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -174,7 +174,7 @@ if __name__ == "__main__":
 
 ### Breaking It Down
 
-**Keyword Matching Strategy**
+#### Keyword Matching Strategy
 
 ```python
 network_keywords = ["show", "interface", "ip", ...]
@@ -182,7 +182,7 @@ network_keywords = ["show", "interface", "ip", ...]
 
 These are the most common terms in network commands. You can expand this list based on your specific environment.
 
-**Case-Insensitive Matching**
+#### Case-Insensitive Matching
 
 ```python
 text_lower = text.lower()
@@ -190,7 +190,7 @@ text_lower = text.lower()
 
 Ensures "SHOW", "Show", and "show" all match.
 
-**Safe Default**
+#### Safe Default
 
 ```python
 return "general"
@@ -241,7 +241,7 @@ Now let's create the tools that interact with actual network devices.
 
 ### The Safe Network Command Tool
 
-Create `scripts/08.b_network_tools.py`:
+Create `scripts/LCEL/02.b_network_tools.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -479,7 +479,7 @@ def run_network_command(device: str, command: str) -> str:
 
 Now let's connect the classifier and tools into a complete system.
 
-Create `scripts/08.c_routing_system.py`:
+Create `scripts/LCEL/02.c_routing_system.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -611,7 +611,7 @@ print("=" * 60)
 
 Let's build the final, production-ready version with all features.
 
-Create `scripts/08.d_complete_agent.py`:
+Create `scripts/LCEL/02.d_complete_agent.py`:
 
 ```python
 #!/usr/bin/env python3
@@ -910,7 +910,7 @@ if __name__ == "__main__":
 You already have it! Just run:
 
 ```bash
-python scripts/08.d_complete_agent.py
+python scripts/LCEL/02.d_complete_agent.py
 ```
 
 ### Option 2: FastAPI Web Service
@@ -946,7 +946,7 @@ COPY . .
 
 ENV GROQ_API_KEY=""
 
-CMD ["python", "scripts/08.d_complete_agent.py"]
+CMD ["python", "scripts/LCEL/02.d_complete_agent.py"]
 ```
 
 Build and run:
@@ -1040,15 +1040,15 @@ def get_device_inventory() -> str:
 
 ## Lessons from Production Deployments
 
-**1. Start with Read-Only Tools**
+#### 1. Start with Read-Only Tools
 
 Don't implement configuration changes until you trust your system. Read-only operations are safe to experiment with.
 
-**2. Log Everything**
+#### 2. Log Everything
 
 Your logs are your debugging tool and compliance evidence. Be thorough.
 
-**3. Use Environment-Specific Safety**
+#### 3. Use Environment-Specific Safety
 
 ```python
 ENVIRONMENT = os.getenv("ENVIRONMENT", "dev")
@@ -1059,7 +1059,7 @@ if ENVIRONMENT == "production":
     # Extensive logging
 ```
 
-**4. Implement Rate Limiting**
+#### 4. Implement Rate Limiting
 
 Don't let a bug spam your network devices:
 
@@ -1086,7 +1086,7 @@ class RateLimiter:
             return True
 ```
 
-**5. Use Structured Logging**
+#### 5. Use Structured Logging
 
 ```python
 import json

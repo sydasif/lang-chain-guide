@@ -1,4 +1,4 @@
-# Building Clean AI Workflows (LCEL Pipelines)
+# LCEL Module Part 1: Building Clean AI Workflows (LCEL Pipelines)
 
 **Welcome to Part 7!** You've come a long way. In [Part 1](./01_hello_world.md), you learned to talk to LLMs. In [Part 2](./02_tools_and_action.md), you gave your AI superpowers with tools. In [Part 3](./03_dynamic_behavior.md), you made agents adaptive and intelligent. In [Part 4](./04_memory_and_context.md), you gave them memory. In [Part 5](./05_rag_pipeline.md), you connected them to knowledge bases. In [Part 6](./06_middleware_control.md), you added control layers.
 
@@ -124,7 +124,7 @@ This creates a sequence where:
 
 **Think of it like water flowing through pipes**:
 
-```
+```text
 Input → Prompt Template → LLM → Text Extractor → Output
 ```
 
@@ -132,10 +132,10 @@ Each component transforms the data and passes it forward.
 
 ### Run It
 
-Create `scripts/07.a_simple_lcel_chain.py` and run:
+Create `scripts/LCEL/01.a_simple_lcel_chain.py` and run:
 
 ```bash
-uv run scripts/07.a_simple_lcel_chain.py
+uv run scripts/LCEL/01.a_simple_lcel_chain.py
 ```
 
 You'll see a clean tip about network automation, generated with just one line of logic!
@@ -148,7 +148,7 @@ LCEL chains are made of **Runnables**—objects that can be invoked, streamed, o
 
 ### Key Runnable Types
 
-**1. RunnableLambda — Custom Python Functions**
+#### 1. RunnableLambda — Custom Python Functions
 
 ```python
 from langchain_core.runnables import RunnableLambda
@@ -161,7 +161,7 @@ result = chain.invoke("hello world")
 print(result)  # OUTPUT: HELLO WORLD
 ```
 
-**2. RunnableMap — Parallel Processing**
+#### 2. RunnableMap — Parallel Processing
 
 ```python
 from langchain_core.runnables import RunnableMap
@@ -178,7 +178,7 @@ print(result)
 # {'uppercase': 'HELLO WORLD', 'lowercase': 'hello world', 'length': 11}
 ```
 
-**3. RunnablePassthrough — Pass Data Forward**
+#### 3. RunnablePassthrough — Pass Data Forward
 
 ```python
 from langchain_core.runnables import RunnablePassthrough
@@ -194,7 +194,7 @@ print(result)
 # {'original': 'hello', 'processed': 'HELLO'}
 ```
 
-**4. RunnableSequence — Step-by-Step Execution**
+#### 4. RunnableSequence — Step-by-Step Execution
 
 ```python
 # This is what the pipe operator creates automatically
@@ -223,7 +223,7 @@ All from the same input text.
 
 ### The LCEL Solution
 
-Create `scripts/07.b_runnable_map.py`:
+Create `scripts/LCEL/01.b_runnable_map.py`:
 
 ```python
 from langchain_core.runnables import RunnableMap, RunnableLambda
@@ -322,9 +322,9 @@ result = agent.invoke({"messages": [{"role": "user", "content": question}]})
 - More complex debugging
 - Overkill for "always retrieve" scenarios
 
-### The LCEL Solution
+### The LCEL Solution (RAG)
 
-Create `scripts/07.c_rag_with_lcel.py`:
+Create `scripts/LCEL/01.c_rag_with_lcel.py`:
 
 ```python
 from langchain_community.embeddings import FastEmbedEmbeddings
@@ -405,7 +405,7 @@ Let's trace the data flow step by step:
 {"question": "What is RAG?"}
 ```
 
-**Step 1: RunnableMap**
+#### Step 1: RunnableMap
 
 ```python
 RunnableMap({
@@ -423,7 +423,7 @@ Output:
 }
 ```
 
-**Step 2: Prompt Template**
+#### Step 2: Prompt Template
 
 ```python
 | rag_prompt
@@ -431,7 +431,7 @@ Output:
 
 Output:
 
-```
+```text
 Use the context below to answer the question.
 
 Context:
@@ -442,7 +442,7 @@ Question: What is RAG?
 Answer:
 ```
 
-**Step 3: LLM**
+#### Step 3: LLM
 
 ```python
 | llm
@@ -450,7 +450,7 @@ Answer:
 
 Output: `AIMessage(content="RAG is a technique that...")`
 
-**Step 4: Content Extractor**
+#### Step 4: Content Extractor
 
 ```python
 | (lambda x: x.content)
@@ -480,7 +480,7 @@ Output: `"RAG is a technique that combines retrieval with generation..."`
 
 You can bind tools directly to models without creating agents.
 
-### The Scenario
+### The Scenario (Tools)
 
 You're building a calculator assistant that needs:
 
@@ -512,7 +512,7 @@ This works but involves:
 
 ### The LCEL Way (lightweight)
 
-Create `scripts/07.d_tools_with_lcel.py`:
+Create `scripts/LCEL/01.d_tools_with_lcel.py`:
 
 ```python
 from langchain.tools import tool
@@ -661,7 +661,7 @@ This lets you:
 
 Let's combine everything into a production-ready system.
 
-### The Scenario
+### The Scenario (Pipeline)
 
 You're building a **Smart Question-Answer System** that:
 
@@ -673,7 +673,7 @@ You're building a **Smart Question-Answer System** that:
 
 ### The Complete Implementation
 
-Create `scripts/07.e_complete_pipeline.py`:
+Create `scripts/LCEL/01.e_complete_pipeline.py`:
 
 ```python
 from langchain_community.embeddings import FastEmbedEmbeddings
@@ -777,7 +777,7 @@ Let's trace how a question flows through:
 
 **Input:** `"What is RAG?"`
 
-**Step 1: Classifier**
+#### Step 1: Classifier
 
 ```python
 classifier = RunnableLambda(
@@ -787,7 +787,7 @@ classifier = RunnableLambda(
 
 Output: `{"question": "What is RAG?", "category": "knowledge"}`
 
-**Step 2: Router**
+#### Step 2: Router
 
 ```python
 router = RunnableBranch(
@@ -798,7 +798,7 @@ router = RunnableBranch(
 
 Checks category → Routes to `knowledge_chain`
 
-**Step 3: Knowledge Chain Execution**
+#### Step 3: Knowledge Chain Execution
 
 ```python
 # Retrieves docs, formats prompt, calls LLM
@@ -809,7 +809,7 @@ Output: `"RAG stands for Retrieval Augmented Generation..."`
 
 ### Why This Design Works
 
-**1. Separation of Concerns**
+#### 1. Separation of Concerns
 
 - Classifier: Decides intent
 - Router: Picks the right path
@@ -832,7 +832,7 @@ result = general_chain.invoke({"question": "Hi"})
 assert len(result) > 0
 ```
 
-**3. Easy to Extend**
+#### 3. Easy to Extend
 
 Want to add a new category?
 
@@ -1062,7 +1062,7 @@ You've learned all the building blocks:
 - Middleware ([Part 6](./06_middleware_control.md))
 - **Pipelines (Part 7)** ✅
 
-**In [Part 8](./08_final_project.md)**, we bring it all together into a **complete production system**: the Network Automation Agent.
+**In [Part 2](./lcel_final.md)**, we bring it all together into a **complete production system**: the Network Automation Agent.
 
 You'll see how all these concepts combine into:
 
@@ -1076,7 +1076,7 @@ This is where theory becomes practice.
 
 ---
 
-**Ready to build the complete system?** Continue to [Part 8: Building Your Production-Ready Network Automation Agent](./08_final_project.md) where everything comes together.
+**Ready to build the complete system?** Continue to [LCEL Part 2: Building Your Production-Ready Network Automation Agent](./lcel_final.md) where everything comes together.
 
 ---
 
