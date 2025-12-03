@@ -30,7 +30,7 @@ Your agent is powerful, but power without control is dangerous. Right now, your 
 - **Accumulate huge conversation histories** → Memory problems
 - **Run without oversight** → No visibility into what it's doing
 
-Before we build the capstone application in Part 6, we need to add the **manager layer**—middleware that supervises your agent's behavior.
+Before we build the capstone application in Part 7, we need to add the **manager layer**—middleware that supervises your agent's behavior.
 
 Think of middleware like a responsible manager who:
 
@@ -1133,7 +1133,7 @@ You now have all the building blocks for a production AI agent:
 - **Knowledge** (Part 4)
 - **Control** (Part 6)
 
-**In Part 6**, we combine everything into a **complete, real-world application**:
+**In Part 7**, we combine everything into a **complete, real-world application**:
 
 - Customer service chatbot with RAG knowledge base
 - Multiple tools for common operations
@@ -1145,7 +1145,7 @@ It's the grand finale where everything comes together!
 
 ---
 
-**Ready to build your capstone project?** Continue to [Part 6](./06_complete_application.md) where we create a production-ready AI application using everything you've learned.
+**Ready to build your capstone project?** Continue to [Part 7](./07_capstone_project.md) where we create a production-ready AI application using everything you've learned.
 
 ---
 

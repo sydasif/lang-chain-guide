@@ -758,7 +758,7 @@ Your agent can remember conversations, but what about knowledge it was never tra
 
 The AI doesn't have access to your private documents, company policies, or proprietary information.
 
-**In Part 5**, we'll solve this with **RAG (Retrieval-Augmented Generation)**—teaching your agent to search through your documents and provide accurate, grounded answers.
+**In Part 6**, we'll solve this with **RAG (Retrieval-Augmented Generation)**—teaching your agent to search through your documents and provide accurate, grounded answers.
 
 This is where your agent transforms from a conversational partner into a **knowledge expert**.
 

@@ -26,7 +26,7 @@ This isn't a toy. This agent needs to:
 5. **Log everything** for compliance (Middleware)
 6. **Be safe and reliable** (Error handling)
 
-We will build this entire system in one file: `scripts/06_complete_application.py`.
+We will build this entire system in one file: `scripts/07_complete_application.py`.
 
 ---
 
@@ -66,7 +66,7 @@ This architecture separates concerns:
 
 ## Step 1: Setup and Dependencies
 
-Create a new file called `scripts/06_complete_application.py`.
+Create a new file called `scripts/07_complete_application.py`.
 
 First, we need our imports. Notice how we're pulling from everything we've learned:
 
@@ -284,7 +284,7 @@ print(f"\n📞 Agent: {response4}")
 Execute the script:
 
 ```bash
-python scripts/06_complete_application.py
+python scripts/07_complete_application.py
 ```
 
 You should see the agent handling each request intelligently:

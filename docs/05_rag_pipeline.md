@@ -1082,7 +1082,7 @@ What if it:
 - Exceeds rate limits?
 - Costs spiral out of control?
 
-**In Part 5**, we'll add the safety layer with **middleware**:
+**In Part 6**, we'll add the safety layer with **middleware**:
 
 - Rate limiting and cost controls
 - Human-in-the-loop approval
